@@ -16,7 +16,7 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {
 
     router.route('/')
         .get(function (req, res) {
-            kokoelma.find({borough: "Brooklyn"}).toArray().then((result) => {
+            kokoelma.find({}).toArray().then((result) => {
                 console.log(res);
                 res.json(result);
                 // db.close();
