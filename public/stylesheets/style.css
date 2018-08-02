@@ -46,7 +46,7 @@ ul {
 select {
   background-color: #f7f8f9;
   border: none;
-  margin-top: 10px;
+  margin: 10px;
   font-size: 105%;
   width: 50%;
 }
