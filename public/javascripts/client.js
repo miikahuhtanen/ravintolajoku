@@ -18,5 +18,5 @@ $(function () {
             });
     }
 
-    haeTiedot();
+    $("#napukka").on("click", haeTiedot());
 });

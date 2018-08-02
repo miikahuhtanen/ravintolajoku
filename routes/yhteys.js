@@ -19,7 +19,7 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {
             kokoelma.find({borough: "Brooklyn"}).limit(5).toArray().then((result) => {
                 console.log(res);
                 res.json(result);
-                db.close();
+                // db.close();
             });
         });
 
