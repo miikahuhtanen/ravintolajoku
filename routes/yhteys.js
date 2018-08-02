@@ -19,21 +19,53 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {
             kokoelma.find({}).toArray().then((result) => {
                 console.log(res);
                 res.json(result);
-                // db.close();
             });
+        })
+        .post((req, res) => {
+            kokoelma.save(req.body, (err, result) => {
+                if (err) return console.log(err);
+                console.log('saved to database');
+                res.redirect('/')
+            })
+        })
+        .put((req, res) => {
+            kokoelma.findOneAndUpdate({borough: req.body.borough}, {
+                $set: {
+                    name: req.body.name,
+                    borough: req.body.borough
+                }
+            }, {
+                //sort: {_id: -1},
+                upsert: true
+            }, (err, result) => {
+                if (err) return res.send(err)
+                res.json(result)
+            })
+        })
+        .delete((req, res) => {
+            kokoelma.findOneAndDelete({name: req.body.name},
+                (err, result) => {
+                    if (err) return res.send(500, err);
+                    res.send({message: 'Object deleted! Hope you aint gonna miss it..'})
+                })
         });
 
-    //kokoelma.find({}).limit(5).toArray()
-    // kokoelma.updateMany({cuisine: 'Chinese'}, {$set: {cuisine: 'Kiinalaista'}})
-    // kokoelma.insertOne({tieto: 'arvo', toinen: 'luvattu arvo'})
-    // kokoelma.updateOne({borough: 'Bronx', name: 'Wild Asia'},
-    //         {$push: {grades: arvio}})
-    //    TODO: VIRHEKÄSITTELY KUNTOON?
-    //  .then((res) => {
-    //      console.log(res);
-    //    console.log(res);
-    //  db.close();
-    //});
+    router.route("/hae")
+        .get((req, res) => {
+            kokoelma.find({borough: req.body.borough}).limit(25).toArray().then((result) => {
+                console.log(res);
+                res.json(result);
+            })
+        })
+        .get((req, res) => {
+            kokoelma.find({cuisine: req.body.cuisine}).limit(25).toArray().then((result) => {
+                console.log(res);
+                res.json(result);
+            })
+        })
+
+
+
 });
 
 module.exports = router;
