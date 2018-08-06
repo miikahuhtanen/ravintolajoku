@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    div#main
+        h1 Rest-au-Router
+        form#lomake
+            div
+                label(for="haku1") Place
+                select#haku1
+                    option(value="Brooklyn") Brooklyn
+                    option(value="Bronx") Bronx
+                    option(value="Manhattan") Manhattan
+                    option(value="Queens") Queens
+                    option(value="Staten Island") Staten Island
+            div
+                label(for="haku2") Type
+                select#haku2
+                    option(value="American") American
+                    option(value="Chinese") Chinese
+                    option(value="Irish") Irish
+                    option(value="Delicatessen") Delicatessen
+                    option(value="Jewish/Kosher") Jewish/Kosher
+            div#hakukentat
+            button#napukka(type="button") HAE
+        ul#content
