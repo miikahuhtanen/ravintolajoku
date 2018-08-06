@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
-// var url = 'mongodb://localhost:27017/ravintolajoku';
 var url = 'mongodb://localhost:27017/ravintolajoku';
 
 
@@ -17,7 +16,9 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {
 
     router.route('/')
         .get(function (req, res) {
+
             kokoelma.find({borough: new RegExp(req.query.borough,"i"), cuisine: new RegExp(req.query.cuisine,"i")}).limit(10).toArray().then((result) => {
+
                 console.log(res);
                 res.json(result);
                 // db.close();
@@ -56,13 +57,15 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {
 
     router.route("/hae")
         .get((req, res) => {
-            kokoelma.find({borough: new RegExp(req.body.borough,"i")}).limit(25).toArray().then((result) => {
-                console.log(result);
+
+            kokoelma.find({borough: req.body.borough}).limit(25).toArray().then((result) => {
+                console.log(res);
                 res.json(result);
             })
         })
         .get((req, res) => {
             kokoelma.find({cuisine: new RegExp(req.body.cuisine,"i")}).limit(25).toArray().then((result) => {
+
                 console.log(res);
                 res.json(result);
             })
